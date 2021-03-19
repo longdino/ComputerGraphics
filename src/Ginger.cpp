@@ -88,31 +88,35 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	// Create c2Circle and c2Capsules on gingerman's head, torso, arms, and legs
 	// head
 	circ_head.p = c2V(0.0, 0.75);
-	circ_head.r = 0.5;
+	circ_head.r = 0.25;
 
 	// torso
-	cap_torso.r = 0.3;
+	cap_torso.r = 0.55;
+	cap_torso.a = c2V(0.0, 0.4);
+	cap_torso.b = c2V(0.0, -0.5);
 
 	// right arm and left arm
-	cap_rArm.r = 0.3;
-	cap_rArm.a = c2V(0.3, 0.4);
-	cap_rArm.b = c2V(0.7, 0.5);
+	cap_rArm.r = 0.15;
+	cap_rArm.a = c2V(0.3, 0.25);
+	cap_rArm.b = c2V(0.7, 0.45);
 
-	cap_lArm.r = 0.3;
-	cap_lArm.a = c2V(-0.7, 0.5);
-	cap_lArm.b = c2V(-0.3, 0.4);
+	cap_lArm.r = 0.15;
+	cap_lArm.a = c2V(-0.7, 0.45);
+	cap_lArm.b = c2V(-0.3, 0.25);
 
 	// right leg and left leg
-	cap_rLeg.r = 0.3;
-	cap_rLeg.a = c2V(0.3, -0.5);
-	cap_rLeg.b = c2V(0.5, -1.0);
+	cap_rLeg.r = 0.15;
+	cap_rLeg.a = c2V(0.2, -0.5);
+	cap_rLeg.b = c2V(0.4, -1.0);
 
-	cap_lLeg.r = 0.3;
-	cap_lLeg.a = c2V(-0.5, -1.0);
-	cap_lLeg.b = c2V(-0.3, -0.5);
+	cap_lLeg.r = 0.15;
+	cap_lLeg.a = c2V(-0.4, -1.0);
+	cap_lLeg.b = c2V(-0.2, -0.5);
 
 	cout << cap_rLeg.r << endl;
 	cout << "Collision: head-rightArm: " << c2CircletoCapsule(circ_head, cap_rArm) << endl;
+	cout << "Collision: torso-rightArm: " << c2CapsuletoCapsule(cap_torso, cap_rArm) << endl;
+	cout << "Collision: torso-leftArm: " << c2CapsuletoCapsule(cap_torso, cap_lArm) << endl;
 
 	// build system matrices and vectors
 	M.resize(n, n);
