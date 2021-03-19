@@ -87,13 +87,21 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 
 	// right arm and left arm
 	cap_rArm.r = 0.3;
+	cap_rArm.a = c2V(0.3, 0.4);
+	cap_rArm.b = c2V(0.7, 0.5);
 
 	cap_lArm.r = 0.3;
+	cap_lArm.a = c2V(-0.7, 0.5);
+	cap_lArm.b = c2V(-0.3, 0.4);
 
 	// right leg and left leg
 	cap_rLeg.r = 0.3;
+	cap_rLeg.a = c2V(0.3, -0.5);
+	cap_rLeg.b = c2V(0.5, -1.0);
 
 	cap_lLeg.r = 0.3;
+	cap_lLeg.a = c2V(-0.5, -1.0);
+	cap_lLeg.b = c2V(-0.3, -0.5);
 
 	// build system matrices and vectors
 	M.resize(n, n);

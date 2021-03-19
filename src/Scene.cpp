@@ -10,7 +10,7 @@
 
 #include "Scene.h"
 #include "Particle.h"
-#include "Cloth.h"
+//#include "Cloth.h"
 #include "Shape.h"
 #include "Program.h"
 #include "MatrixStack.h"
