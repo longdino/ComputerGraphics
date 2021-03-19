@@ -27,6 +27,7 @@ c2Capsule cap_lArm;
 c2Capsule cap_rLeg;
 c2Capsule cap_lLeg;
 c2Capsule cap_torso;
+vector<int> cuteIndex;		// head.r, torso.a, torso.b, rightarm.a, rightarm.b, leftarm.a, leftarm.b, rightleg.a, rightleg.b, leftleg.a, leftleg.b
 
 shared_ptr<Triangle> createTriangle(const shared_ptr<Particle> p0, const shared_ptr<Particle> p1, const shared_ptr<Particle> p2, double E) {
 	auto t = make_shared<Triangle>(p0, p1, p2);
@@ -87,31 +88,43 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 
 	// Create c2Circle and c2Capsules on gingerman's head, torso, arms, and legs
 	// head
-	circ_head.p = c2V(0.0, 0.75); //0.009464, 0.744289
+	circ_head.p = c2V(0.009464, 0.744289); //0.009464, 0.744289
 	circ_head.r = 0.25;
+	cuteIndex.push_back(177); // p
+	//cout << particles[177]->x << endl;
 
 	// torso
-	cap_torso.r = 0.55;
-	cap_torso.a = c2V(0.0, 0.4); // 0.012035, 0.428777
-	cap_torso.b = c2V(0.0, -0.5); // 0.036950, -0.505835
+	cap_torso.r = 0.3;
+	cap_torso.a = c2V(0.012035, 0.428777); // 0.012035, 0.428777
+	cap_torso.b = c2V(-0.047760, -0.520907); // -0.047760, -0.520907
+	cuteIndex.push_back(168); // a
+	cuteIndex.push_back(56); // b
 
 	// right arm and left arm
 	cap_rArm.r = 0.15;
-	cap_rArm.a = c2V(0.3, 0.25); // 0.245777, 0.273459
-	cap_rArm.b = c2V(0.7, 0.45); // 0.728091, 0.367685
+	cap_rArm.a = c2V(0.245777, 0.273459); // 0.245777, 0.273459
+	cap_rArm.b = c2V(0.720891, 0.367685); // 0.720891, 0.367685
+	cuteIndex.push_back(159); // a
+	cuteIndex.push_back(199); // b
 
 	cap_lArm.r = 0.15;
-	cap_lArm.a = c2V(-0.7, 0.45); //-0.702987, 0.411238
-	cap_lArm.b = c2V(-0.3, 0.25); //-0.295912, 0.295529
+	cap_lArm.a = c2V(-0.702987, 0.411238); //-0.702987, 0.411238
+	cap_lArm.b = c2V(-0.295912, 0.295529); //-0.295912, 0.295529
+	cuteIndex.push_back(207); // a
+	cuteIndex.push_back(151); // b
 
 	// right leg and left leg
 	cap_rLeg.r = 0.15;
-	cap_rLeg.a = c2V(0.2, -0.5); // 0.121343, -0.495606
-	cap_rLeg.b = c2V(0.4, -1.0); // 0.320734, -0.966588
+	cap_rLeg.a = c2V(0.121343, -0.495606); // 0.121343, -0.495606
+	cap_rLeg.b = c2V(0.320734, -0.966588); // 0.320734, -0.966588
+	cuteIndex.push_back(95); // a
+	cuteIndex.push_back(209); // b
 
 	cap_lLeg.r = 0.15;
-	cap_lLeg.a = c2V(-0.4, -1.0); // -0.376588, -0.986662
-	cap_lLeg.b = c2V(-0.2, -0.5); // -0.113578, -0.443566
+	cap_lLeg.a = c2V(-0.376588, -0.986662); // -0.376588, -0.986662
+	cap_lLeg.b = c2V(-0.113578, -0.443566); // -0.113578, -0.443566
+	cuteIndex.push_back(69); // a
+	cuteIndex.push_back(97); // b
 
 	//cout << cap_rLeg.r << endl;
 	//cout << "Collision: head-rightArm: " << c2CircletoCapsule(circ_head, cap_rArm) << endl;
@@ -411,6 +424,29 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 			particles[i]->x += h * particles[i]->v;
 		}
 	}
+
+	// cute c2 update
+	circ_head.p = c2V(particles[cuteIndex[0]]->x[0], particles[cuteIndex[0]]->x[1]);
+
+	cap_torso.a = c2V(particles[cuteIndex[1]]->x[0], particles[cuteIndex[0]]->x[1]);
+	cap_torso.b = c2V(particles[cuteIndex[2]]->x[0], particles[cuteIndex[0]]->x[2]);
+
+	cap_rArm.a = c2V(particles[cuteIndex[3]]->x[0], particles[cuteIndex[0]]->x[3]);
+	cap_rArm.b = c2V(particles[cuteIndex[4]]->x[0], particles[cuteIndex[0]]->x[4]);
+
+	cap_lArm.a = c2V(particles[cuteIndex[5]]->x[0], particles[cuteIndex[0]]->x[5]);
+	cap_lArm.b = c2V(particles[cuteIndex[6]]->x[0], particles[cuteIndex[0]]->x[6]);
+
+	cap_rLeg.a = c2V(particles[cuteIndex[7]]->x[0], particles[cuteIndex[0]]->x[7]);
+	cap_rLeg.b = c2V(particles[cuteIndex[8]]->x[0], particles[cuteIndex[0]]->x[8]);
+
+	cap_lLeg.a = c2V(particles[cuteIndex[9]]->x[0], particles[cuteIndex[0]]->x[9]);
+	cap_lLeg.b = c2V(particles[cuteIndex[10]]->x[0], particles[cuteIndex[0]]->x[10]);
+
+	// debugging
+	//for (int i = 0; i < cuteIndex.size(); i++) {
+	//	cout << "Particle Positoin: \n" << particles[cuteIndex[i]]->x << endl;
+	//}
 
 	// Update position buffers
 	updatePos();
