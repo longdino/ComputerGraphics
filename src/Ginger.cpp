@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#define CUTE_GL_IMPLEMENTATION
+#define CUTE_C2_IMPLEMENTATION
 #include "cute_c2.h"
 
 #include "Ginger.h"
@@ -18,7 +18,15 @@
 #include "Plane.h"
 
 using namespace std;
-using namespace Eigen;
+using namespace Eigen; 
+
+// cute_c2 variables
+c2Circle circ_head;
+c2Capsule cap_rArm;
+c2Capsule cap_lArm;
+c2Capsule cap_rLeg;
+c2Capsule cap_lLeg;
+c2Capsule cap_torso;
 
 shared_ptr<Triangle> createTriangle(const shared_ptr<Particle> p0, const shared_ptr<Particle> p1, const shared_ptr<Particle> p2, double E) {
 	auto t = make_shared<Triangle>(p0, p1, p2);
@@ -104,6 +112,7 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	cap_lLeg.b = c2V(-0.3, -0.5);
 
 	cout << cap_rLeg.r << endl;
+	cout << "Collision: head-rightArm: " << c2CircletoCapsule(circ_head, cap_rArm) << endl;
 
 	// build system matrices and vectors
 	M.resize(n, n);

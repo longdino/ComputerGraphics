@@ -74,8 +74,6 @@ private:
 	std::shared_ptr<Plane> flr;
 	std::vector< std::shared_ptr<Plane> > planes;
 
-	// test
-	std::shared_ptr<Ginger> ginger2;
 
 };
 

@@ -5,9 +5,6 @@
 #include <vector>
 #include <memory>
 
-#define CUTE_GL_IMPLEMENTATION
-#include "cute_c2.h"
-
 #define EIGEN_DONT_ALIGN_STATICALLY
 #include <Eigen/Dense>
 #include <Eigen/Sparse>
@@ -57,14 +54,6 @@ private:
 	unsigned eleBufID;
 	unsigned posBufID;
 	unsigned texBufID;
-
-	// cute_c2 variables
-	c2Circle circ_head;
-	c2Capsule cap_rArm;
-	c2Capsule cap_lArm;
-	c2Capsule cap_rLeg;
-	c2Capsule cap_lLeg;
-	c2Capsule cap_torso;
 
 };
 
