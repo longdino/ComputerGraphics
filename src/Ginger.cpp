@@ -101,26 +101,26 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	cuteIndex.push_back(56); // b
 
 	// right arm and left arm
-	cap_rArm.r = 0.15;
+	cap_rArm.r = 0.1;
 	cap_rArm.a = c2V(0.245777, 0.273459); // 0.245777, 0.273459
 	cap_rArm.b = c2V(0.720891, 0.367685); // 0.720891, 0.367685
 	cuteIndex.push_back(159); // a
 	cuteIndex.push_back(199); // b
 
-	cap_lArm.r = 0.15;
+	cap_lArm.r = 0.1;
 	cap_lArm.a = c2V(-0.702987, 0.411238); //-0.702987, 0.411238
 	cap_lArm.b = c2V(-0.295912, 0.295529); //-0.295912, 0.295529
 	cuteIndex.push_back(207); // a
 	cuteIndex.push_back(151); // b
 
 	// right leg and left leg
-	cap_rLeg.r = 0.15;
+	cap_rLeg.r = 0.1;
 	cap_rLeg.a = c2V(0.121343, -0.495606); // 0.121343, -0.495606
 	cap_rLeg.b = c2V(0.320734, -0.966588); // 0.320734, -0.966588
 	cuteIndex.push_back(95); // a
 	cuteIndex.push_back(209); // b
 
-	cap_lLeg.r = 0.15;
+	cap_lLeg.r = 0.1;
 	cap_lLeg.a = c2V(-0.376588, -0.986662); // -0.376588, -0.986662
 	cap_lLeg.b = c2V(-0.113578, -0.443566); // -0.113578, -0.443566
 	cuteIndex.push_back(69); // a
@@ -393,6 +393,32 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 		}
 	}
 
+	if (c2CircletoCapsule(circ_head, cap_rArm)) {
+		cout << "Head-RightArm Collision: " << c2CircletoCapsule(circ_head, cap_rArm) << endl;
+		cout << "at: " << circ_head.p.x << ", " << circ_head.p.y << endl;
+		cout << "at: " << cap_rArm.a.x << ", " << cap_rArm.a.y << " and " << cap_rArm.b.x << ", " << cap_rArm.b.y << endl;
+	}
+	if (c2CircletoCapsule(circ_head, cap_lArm)) {
+		cout << "Head-LeftArm Collision: " << c2CircletoCapsule(circ_head, cap_lArm) << endl;
+		cout << "at: " << circ_head.p.x << ", " << circ_head.p.y << endl;
+		cout << "at: " << cap_lArm.a.x << ", " << cap_lArm.a.y << " and " << cap_lArm.b.x << ", " << cap_lArm.b.y << endl;
+	}
+	if (c2CapsuletoCapsule(cap_rArm, cap_rLeg)) {
+		cout << "RightArm-RightLeg Collision: " << c2CapsuletoCapsule(cap_rArm, cap_rLeg) << endl;
+		cout << "at: " << cap_rArm.a.x << ", " << cap_rArm.a.y << " and " << cap_rArm.b.x << ", " << cap_rArm.b.y << endl;
+		cout << "at: " << cap_rLeg.a.x << ", " << cap_rLeg.a.y << " and " << cap_rLeg.b.x << ", " << cap_rLeg.b.y << endl;
+	}
+	if (c2CapsuletoCapsule(cap_lArm, cap_lLeg)) {
+		cout << "LeftArm-LeftLeg Collision: " << c2CapsuletoCapsule(cap_lArm, cap_lLeg) << endl;
+		cout << "at: " << cap_lArm.a.x << ", " << cap_lArm.a.y << " and " << cap_lArm.b.x << ", " << cap_lArm.b.y << endl;
+		cout << "at: " << cap_lLeg.a.x << ", " << cap_lLeg.a.y << " and " << cap_lLeg.b.x << ", " << cap_lLeg.b.y << endl;
+	}
+	if (c2CapsuletoCapsule(cap_rLeg, cap_lLeg)) {
+		cout << "RightLeg-LeftLeg Collision: " << c2CapsuletoCapsule(cap_rLeg, cap_lLeg) << endl;
+		cout << "at: " << cap_rLeg.a.x << ", " << cap_rLeg.a.y << " and " << cap_rLeg.b.x << ", " << cap_rLeg.b.y << endl;
+		cout << "at: " << cap_lLeg.a.x << ", " << cap_lLeg.a.y << " and " << cap_lLeg.b.x << ", " << cap_lLeg.b.y << endl;
+	}
+
 	// solve using a sparse matrix
 	VectorXd b;
 	VectorXd x;
@@ -428,20 +454,20 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	// cute c2 update
 	circ_head.p = c2V(particles[cuteIndex[0]]->x[0], particles[cuteIndex[0]]->x[1]);
 
-	cap_torso.a = c2V(particles[cuteIndex[1]]->x[0], particles[cuteIndex[0]]->x[1]);
-	cap_torso.b = c2V(particles[cuteIndex[2]]->x[0], particles[cuteIndex[0]]->x[2]);
+	cap_torso.a = c2V(particles[cuteIndex[1]]->x[0], particles[cuteIndex[1]]->x[1]);
+	cap_torso.b = c2V(particles[cuteIndex[2]]->x[0], particles[cuteIndex[2]]->x[1]);
 
-	cap_rArm.a = c2V(particles[cuteIndex[3]]->x[0], particles[cuteIndex[0]]->x[3]);
-	cap_rArm.b = c2V(particles[cuteIndex[4]]->x[0], particles[cuteIndex[0]]->x[4]);
+	cap_rArm.a = c2V(particles[cuteIndex[3]]->x[0], particles[cuteIndex[3]]->x[1]);
+	cap_rArm.b = c2V(particles[cuteIndex[4]]->x[0], particles[cuteIndex[4]]->x[1]);
 
-	cap_lArm.a = c2V(particles[cuteIndex[5]]->x[0], particles[cuteIndex[0]]->x[5]);
-	cap_lArm.b = c2V(particles[cuteIndex[6]]->x[0], particles[cuteIndex[0]]->x[6]);
+	cap_lArm.a = c2V(particles[cuteIndex[5]]->x[0], particles[cuteIndex[5]]->x[1]);
+	cap_lArm.b = c2V(particles[cuteIndex[6]]->x[0], particles[cuteIndex[6]]->x[1]);
 
-	cap_rLeg.a = c2V(particles[cuteIndex[7]]->x[0], particles[cuteIndex[0]]->x[7]);
-	cap_rLeg.b = c2V(particles[cuteIndex[8]]->x[0], particles[cuteIndex[0]]->x[8]);
+	cap_rLeg.a = c2V(particles[cuteIndex[7]]->x[0], particles[cuteIndex[7]]->x[1]);
+	cap_rLeg.b = c2V(particles[cuteIndex[8]]->x[0], particles[cuteIndex[8]]->x[1]);
 
-	cap_lLeg.a = c2V(particles[cuteIndex[9]]->x[0], particles[cuteIndex[0]]->x[9]);
-	cap_lLeg.b = c2V(particles[cuteIndex[10]]->x[0], particles[cuteIndex[0]]->x[10]);
+	cap_lLeg.a = c2V(particles[cuteIndex[9]]->x[0], particles[cuteIndex[9]]->x[1]);
+	cap_lLeg.b = c2V(particles[cuteIndex[10]]->x[0], particles[cuteIndex[10]]->x[1]);
 
 	// debugging
 	//for (int i = 0; i < cuteIndex.size(); i++) {
