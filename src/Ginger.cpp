@@ -103,6 +103,8 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	cap_lLeg.a = c2V(-0.5, -1.0);
 	cap_lLeg.b = c2V(-0.3, -0.5);
 
+	cout << cap_rLeg.r << endl;
+
 	// build system matrices and vectors
 	M.resize(n, n);
 	K.resize(n, n);
@@ -342,6 +344,8 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 		//cout << "floor: " << flrPos << endl;
 		//cout << "delPos: " << delPos << endl;
 		//cout << "d: " << d << endl;
+
+		//cout << "Collision: head-rightArm: " << c2CircletoCapsule(circ_head, cap_rArm) << endl;
 
 		Matrix2d I;
 		I.setIdentity();
