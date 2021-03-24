@@ -471,6 +471,21 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	}
 
 	cout << "======= Collision Detection Start =======" << endl;
+	if (c2PolytoPoly(&head, nullptr, &right_arm, nullptr)) {
+		cout << "Head-RightArm Collision" << endl;
+	}
+	if (c2PolytoPoly(&head, nullptr, &left_arm, nullptr)) {
+		cout << "Head-LeftArm Collision" << endl;
+	}
+	if (c2PolytoPoly(&right_arm, nullptr, &right_leg, nullptr)) {
+		cout << "RightArm-RightLeg Collision" << endl;
+	}
+	if (c2PolytoPoly(&left_arm, nullptr, &left_leg, nullptr)) {
+		cout << "LeftArm-LeftLeg Collision" << endl;
+	}
+	if (c2PolytoPoly(&right_leg, nullptr, &left_leg, nullptr)) {
+		cout << "RightLeg-LeftLeg Collision" << endl;
+	}
 	//if (c2CircletoCapsule(circ_head, cap_rArm)) {
 	//	cout << "Head-RightArm Collision: " << c2CircletoCapsule(circ_head, cap_rArm) << endl;
 	//	cout << "at: " << circ_head.p.x << ", " << circ_head.p.y << endl;
@@ -554,6 +569,12 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 			}
 		}
 	}
+	c2Norms(head.verts, head.norms, 8);
+	c2Norms(torso.verts, torso.norms, 8);
+	c2Norms(right_arm.verts, right_arm.norms, 6);
+	c2Norms(left_arm.verts, left_arm.norms, 6);
+	c2Norms(right_leg.verts, right_leg.norms, 6);
+	c2Norms(left+leg.verts, left_leg.norms, 6);
 	//circ_head.p = c2V(particles[cuteIndex[0]]->x[0], particles[cuteIndex[0]]->x[1]);
 
 	//cap_torso.a = c2V(particles[cuteIndex[1]]->x[0], particles[cuteIndex[1]]->x[1]);
@@ -572,11 +593,11 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	//cap_lLeg.b = c2V(particles[cuteIndex[10]]->x[0], particles[cuteIndex[10]]->x[1]);
 
 	// debugging
-	for (int i = 0; i < body.size(); i++) {
-		for (int j = 0; j < body[i].size(); j++) {
-			cout << "Particle Position: \n" << particles[body[i][j]]->x << endl;
-		}
-	}
+	//for (int i = 0; i < body.size(); i++) {
+	//	for (int j = 0; j < body[i].size(); j++) {
+	//		cout << "Particle Position: \n" << particles[body[i][j]]->x << endl;
+	//	}
+	//}
 	//for (int i = 0; i < cuteIndex.size(); i++) {
 	//	cout << "Particle Positoin: \n" << particles[cuteIndex[i]]->x << endl;
 	//}
