@@ -27,14 +27,8 @@ c2Poly left_arm;
 c2Poly right_leg;
 c2Poly left_leg;
 c2Poly torso;
-vector<vector<int>> cuteIndex;
-//c2Circle circ_head;
-//c2Capsule cap_rArm;
-//c2Capsule cap_lArm;
-//c2Capsule cap_rLeg;
-//c2Capsule cap_lLeg;
-//c2Capsule cap_torso;
-//vector<int> cuteIndex;		// head.r, torso.a, torso.b, rightarm.a, rightarm.b, leftarm.a, leftarm.b, rightleg.a, rightleg.b, leftleg.a, leftleg.b
+vector<vector<c2v>> body;
+vector<c2v> cuteIndex;
 
 shared_ptr<Triangle> createTriangle(const shared_ptr<Particle> p0, const shared_ptr<Particle> p1, const shared_ptr<Particle> p2, double E) {
 	auto t = make_shared<Triangle>(p0, p1, p2);
@@ -94,6 +88,9 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	}
 
 	// Create c2Circle and c2Capsules on gingerman's head, torso, arms, and legs
+	for (int i = 0; i < 6; i++) {
+		body.push_back(vector<c2v>());
+	}
 	// head
 	head.count = 8;
 	head.verts[0] = c2V(-0.031451, 9.974404); //3
@@ -105,6 +102,10 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	head.verts[6] = c2V(0.202521, 0.844408); //10
 	head.verts[7] = c2V(-0.232033, 0.864814); //1
 	c2Norms(head.verts, head.norms, 8);
+
+	for (int i = 0; i < head.count; i++) {
+		body[0].push_back(head.verts[i]);
+	}
 
 	// torso
 	torso.count = 8;
@@ -118,6 +119,9 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	torso.verts[0] = c2V(-0.413897, -0.582149); //186
 	c2Norms(torso.verts, torso.norms, 8);
 
+	for (int i = 0; i < torso.count; i++) {
+		body[1].push_back(torso.verts[i]);
+	}
 	// right arm
 	right_arm.count = 6;
 	right_arm.verts[0] = c2V(0.206005, 0.050973); //34		torso
@@ -127,6 +131,10 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	right_arm.verts[4] = c2V(0.717288, 0.203351); //22
 	right_arm.verts[5] = c2V(0.720891, 0.367685); //199
 	c2Norms(right_arm.verts, right_arm.norms, 6); 
+
+	for (int i = 0; i < right_arm.count; i++) {
+		body[2].push_back(right_arm.verts[i]);
+	}
 
 	// left arm
 	left_arm.count = 6;
@@ -138,6 +146,10 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	left_arm.verts[5] = c2V(-0.702987, 0.411238); //207
 	c2Norms(left_arm.verts, left_arm.norms, 6);
 
+	for (int i = 0; i < left_arm.count; i++) {
+		body[3].push_back(left_arm.verts[i]);
+	}
+
 	// right leg
 	right_leg.count = 6;
 	right_leg.verts[0] = c2V(0.261481, -0.951321); //210
@@ -147,6 +159,10 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	right_leg.verts[4] = c2V(0.109210, -0.755835); //120
 	right_leg.verts[5] = c2V(0.454954, -0.748515); //115
 	c2Norms(right_leg.verts, right_leg.norms, 6);
+
+	for (int i = 0; i < right_leg.count; i++) {
+		body[4].push_back(right_leg.verts[i]);
+	}
 
 	// left leg
 	left_leg.count = 6;
@@ -158,49 +174,15 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	left_leg.verts[5] = c2V(-0.503754, -0.790425); //104
 	c2Norms(left_leg.verts, left_leg.norms, 6);
 
-	//// head
-	//circ_head.p = c2V(0.009464, 0.744289); //0.009464, 0.744289
-	//circ_head.r = 0.25;
-	//cuteIndex.push_back(177); // p
-	////cout << particles[177]->x << endl;
+	for (int i = 0; i < left_leg.count; i++) {
+		body[5].push_back(left_leg.verts[i]);
+	}
 
-	//// torso
-	//cap_torso.r = 0.3;
-	//cap_torso.a = c2V(0.012035, 0.428777); // 0.012035, 0.428777
-	//cap_torso.b = c2V(-0.047760, -0.520907); // -0.047760, -0.520907
-	//cuteIndex.push_back(168); // a
-	//cuteIndex.push_back(56); // b
+	cout << body.size() << endl;
+	for (int i = 0; i < body.size(); i++) {
+		cout << body[i].size() << endl;
+	}
 
-	//// right arm and left arm
-	//cap_rArm.r = 0.1;
-	//cap_rArm.a = c2V(0.245777, 0.273459); // 0.245777, 0.273459
-	//cap_rArm.b = c2V(0.720891, 0.367685); // 0.720891, 0.367685
-	//cuteIndex.push_back(159); // a
-	//cuteIndex.push_back(199); // b
-
-	//cap_lArm.r = 0.1;
-	//cap_lArm.a = c2V(-0.702987, 0.411238); //-0.702987, 0.411238
-	//cap_lArm.b = c2V(-0.295912, 0.295529); //-0.295912, 0.295529
-	//cuteIndex.push_back(207); // a
-	//cuteIndex.push_back(151); // b
-
-	//// right leg and left leg
-	//cap_rLeg.r = 0.1;
-	//cap_rLeg.a = c2V(0.121343, -0.495606); // 0.121343, -0.495606
-	//cap_rLeg.b = c2V(0.320734, -0.966588); // 0.320734, -0.966588
-	//cuteIndex.push_back(95); // a
-	//cuteIndex.push_back(209); // b
-
-	//cap_lLeg.r = 0.1;
-	//cap_lLeg.a = c2V(-0.376588, -0.986662); // -0.376588, -0.986662
-	//cap_lLeg.b = c2V(-0.113578, -0.443566); // -0.113578, -0.443566
-	//cuteIndex.push_back(69); // a
-	//cuteIndex.push_back(97); // b
-
-	//cout << cap_rLeg.r << endl;
-	//cout << "Collision: head-rightArm: " << c2CircletoCapsule(circ_head, cap_rArm) << endl;
-	//cout << "Collision: torso-rightArm: " << c2CapsuletoCapsule(cap_torso, cap_rArm) << endl;
-	//cout << "Collision: torso-leftArm: " << c2CapsuletoCapsule(cap_torso, cap_lArm) << endl;
 
 	// build system matrices and vectors
 	M.resize(n, n);
