@@ -486,31 +486,6 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	if (c2PolytoPoly(&right_leg, nullptr, &left_leg, nullptr)) {
 		cout << "RightLeg-LeftLeg Collision" << endl;
 	}
-	//if (c2CircletoCapsule(circ_head, cap_rArm)) {
-	//	cout << "Head-RightArm Collision: " << c2CircletoCapsule(circ_head, cap_rArm) << endl;
-	//	cout << "at: " << circ_head.p.x << ", " << circ_head.p.y << endl;
-	//	cout << "at: " << cap_rArm.a.x << ", " << cap_rArm.a.y << " and " << cap_rArm.b.x << ", " << cap_rArm.b.y << endl;
-	//}
-	//if (c2CircletoCapsule(circ_head, cap_lArm)) {
-	//	cout << "Head-LeftArm Collision: " << c2CircletoCapsule(circ_head, cap_lArm) << endl;
-	//	cout << "at: " << circ_head.p.x << ", " << circ_head.p.y << endl;
-	//	cout << "at: " << cap_lArm.a.x << ", " << cap_lArm.a.y << " and " << cap_lArm.b.x << ", " << cap_lArm.b.y << endl;
-	//}
-	//if (c2CapsuletoCapsule(cap_rArm, cap_rLeg)) {
-	//	cout << "RightArm-RightLeg Collision: " << c2CapsuletoCapsule(cap_rArm, cap_rLeg) << endl;
-	//	cout << "at: " << cap_rArm.a.x << ", " << cap_rArm.a.y << " and " << cap_rArm.b.x << ", " << cap_rArm.b.y << endl;
-	//	cout << "at: " << cap_rLeg.a.x << ", " << cap_rLeg.a.y << " and " << cap_rLeg.b.x << ", " << cap_rLeg.b.y << endl;
-	//}
-	//if (c2CapsuletoCapsule(cap_lArm, cap_lLeg)) {
-	//	cout << "LeftArm-LeftLeg Collision: " << c2CapsuletoCapsule(cap_lArm, cap_lLeg) << endl;
-	//	cout << "at: " << cap_lArm.a.x << ", " << cap_lArm.a.y << " and " << cap_lArm.b.x << ", " << cap_lArm.b.y << endl;
-	//	cout << "at: " << cap_lLeg.a.x << ", " << cap_lLeg.a.y << " and " << cap_lLeg.b.x << ", " << cap_lLeg.b.y << endl;
-	//}
-	//if (c2CapsuletoCapsule(cap_rLeg, cap_lLeg)) {
-	//	cout << "RightLeg-LeftLeg Collision: " << c2CapsuletoCapsule(cap_rLeg, cap_lLeg) << endl;
-	//	cout << "at: " << cap_rLeg.a.x << ", " << cap_rLeg.a.y << " and " << cap_rLeg.b.x << ", " << cap_rLeg.b.y << endl;
-	//	cout << "at: " << cap_lLeg.a.x << ", " << cap_lLeg.a.y << " and " << cap_lLeg.b.x << ", " << cap_lLeg.b.y << endl;
-	//}
 	cout << "======= Collision Detection End =======" << endl;
 	// solve using a sparse matrix
 	VectorXd b;
@@ -574,33 +549,13 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	c2Norms(right_arm.verts, right_arm.norms, 6);
 	c2Norms(left_arm.verts, left_arm.norms, 6);
 	c2Norms(right_leg.verts, right_leg.norms, 6);
-	c2Norms(left+leg.verts, left_leg.norms, 6);
-	//circ_head.p = c2V(particles[cuteIndex[0]]->x[0], particles[cuteIndex[0]]->x[1]);
-
-	//cap_torso.a = c2V(particles[cuteIndex[1]]->x[0], particles[cuteIndex[1]]->x[1]);
-	//cap_torso.b = c2V(particles[cuteIndex[2]]->x[0], particles[cuteIndex[2]]->x[1]);
-
-	//cap_rArm.a = c2V(particles[cuteIndex[3]]->x[0], particles[cuteIndex[3]]->x[1]);
-	//cap_rArm.b = c2V(particles[cuteIndex[4]]->x[0], particles[cuteIndex[4]]->x[1]);
-
-	//cap_lArm.a = c2V(particles[cuteIndex[5]]->x[0], particles[cuteIndex[5]]->x[1]);
-	//cap_lArm.b = c2V(particles[cuteIndex[6]]->x[0], particles[cuteIndex[6]]->x[1]);
-
-	//cap_rLeg.a = c2V(particles[cuteIndex[7]]->x[0], particles[cuteIndex[7]]->x[1]);
-	//cap_rLeg.b = c2V(particles[cuteIndex[8]]->x[0], particles[cuteIndex[8]]->x[1]);
-
-	//cap_lLeg.a = c2V(particles[cuteIndex[9]]->x[0], particles[cuteIndex[9]]->x[1]);
-	//cap_lLeg.b = c2V(particles[cuteIndex[10]]->x[0], particles[cuteIndex[10]]->x[1]);
+	c2Norms(left_leg.verts, left_leg.norms, 6);
 
 	// debugging
 	//for (int i = 0; i < body.size(); i++) {
 	//	for (int j = 0; j < body[i].size(); j++) {
 	//		cout << "Particle Position: \n" << particles[body[i][j]]->x << endl;
 	//	}
-	//}
-	//for (int i = 0; i < cuteIndex.size(); i++) {
-	//	cout << "Particle Positoin: \n" << particles[cuteIndex[i]]->x << endl;
-	//}
 
 	// Update position buffers
 	updatePos();
