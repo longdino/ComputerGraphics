@@ -27,8 +27,8 @@ c2Poly left_arm;
 c2Poly right_leg;
 c2Poly left_leg;
 c2Poly torso;
-vector<vector<c2v>> body;
-vector<c2v> cuteIndex;
+vector<vector<int>> body;
+vector<int> cuteIndex;
 
 shared_ptr<Triangle> createTriangle(const shared_ptr<Particle> p0, const shared_ptr<Particle> p1, const shared_ptr<Particle> p2, double E) {
 	auto t = make_shared<Triangle>(p0, p1, p2);
@@ -89,7 +89,7 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 
 	// Create c2Circle and c2Capsules on gingerman's head, torso, arms, and legs
 	for (int i = 0; i < 6; i++) {
-		body.push_back(vector<c2v>());
+		body.push_back(vector<int>());
 	}
 	// head
 	head.count = 8;
@@ -103,9 +103,14 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	head.verts[7] = c2V(-0.232033, 0.864814); //1
 	c2Norms(head.verts, head.norms, 8);
 
-	for (int i = 0; i < head.count; i++) {
-		body[0].push_back(head.verts[i]);
-	}
+	body[0].push_back(3);
+	body[0].push_back(8);
+	body[0].push_back(41);
+	body[0].push_back(39);
+	body[0].push_back(13);
+	body[0].push_back(12);
+	body[0].push_back(10);
+	body[0].push_back(1);
 
 	// torso
 	torso.count = 8;
@@ -119,9 +124,15 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	torso.verts[0] = c2V(-0.413897, -0.582149); //186
 	c2Norms(torso.verts, torso.norms, 8);
 
-	for (int i = 0; i < torso.count; i++) {
-		body[1].push_back(torso.verts[i]);
-	}
+	body[1].push_back(34);
+	body[1].push_back(163);
+	body[1].push_back(46);
+	body[1].push_back(52);
+	body[1].push_back(187);
+	body[1].push_back(116);
+	body[1].push_back(56);
+	body[1].push_back(186);
+
 	// right arm
 	right_arm.count = 6;
 	right_arm.verts[0] = c2V(0.206005, 0.050973); //34		torso
@@ -132,9 +143,12 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	right_arm.verts[5] = c2V(0.720891, 0.367685); //199
 	c2Norms(right_arm.verts, right_arm.norms, 6); 
 
-	for (int i = 0; i < right_arm.count; i++) {
-		body[2].push_back(right_arm.verts[i]);
-	}
+	body[2].push_back(34);
+	body[2].push_back(163);
+	body[2].push_back(28);
+	body[2].push_back(204);
+	body[2].push_back(22);
+	body[2].push_back(199);
 
 	// left arm
 	left_arm.count = 6;
@@ -146,9 +160,12 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	left_arm.verts[5] = c2V(-0.702987, 0.411238); //207
 	c2Norms(left_arm.verts, left_arm.norms, 6);
 
-	for (int i = 0; i < left_arm.count; i++) {
-		body[3].push_back(left_arm.verts[i]);
-	}
+	body[3].push_back(46);
+	body[3].push_back(52);
+	body[3].push_back(147);
+	body[3].push_back(191);
+	body[3].push_back(47);
+	body[3].push_back(207);
 
 	// right leg
 	right_leg.count = 6;
@@ -160,9 +177,12 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	right_leg.verts[5] = c2V(0.454954, -0.748515); //115
 	c2Norms(right_leg.verts, right_leg.norms, 6);
 
-	for (int i = 0; i < right_leg.count; i++) {
-		body[4].push_back(right_leg.verts[i]);
-	}
+	body[4].push_back(210);
+	body[4].push_back(118);
+	body[4].push_back(187);
+	body[4].push_back(116);
+	body[4].push_back(120);
+	body[4].push_back(115);
 
 	// left leg
 	left_leg.count = 6;
@@ -174,10 +194,14 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	left_leg.verts[5] = c2V(-0.503754, -0.790425); //104
 	c2Norms(left_leg.verts, left_leg.norms, 6);
 
-	for (int i = 0; i < left_leg.count; i++) {
-		body[5].push_back(left_leg.verts[i]);
-	}
+	body[5].push_back(67);
+	body[5].push_back(71);
+	body[5].push_back(56);
+	body[5].push_back(186);
+	body[5].push_back(60);
+	body[5].push_back(104);
 
+	// debugging
 	cout << body.size() << endl;
 	for (int i = 0; i < body.size(); i++) {
 		cout << body[i].size() << endl;
@@ -506,6 +530,30 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	}
 
 	// cute c2 update
+	for (int i = 0; i < body.size(); i++) {
+		for (int j = 0; j < body[i].size(); j++) {
+			switch(i){
+			case 0:
+				head.verts[j] = c2V(particles[body[i][j]]->x[0], particles[body[i][j]]->x[1]);
+				break;
+			case 1:
+				torso.verts[j] = c2V(particles[body[i][j]]->x[0], particles[body[i][j]]->x[1]);
+				break;
+			case 2:
+				right_arm.verts[j] = c2V(particles[body[i][j]]->x[0], particles[body[i][j]]->x[1]);
+				break;
+			case 3:
+				left_arm.verts[j] = c2V(particles[body[i][j]]->x[0], particles[body[i][j]]->x[1]);
+				break;
+			case 4:
+				right_leg.verts[j] = c2V(particles[body[i][j]]->x[0], particles[body[i][j]]->x[1]);
+				break;
+			case 5:		
+				left_leg.verts[j] = c2V(particles[body[i][j]]->x[0], particles[body[i][j]]->x[1]);
+				break;
+			}
+		}
+	}
 	//circ_head.p = c2V(particles[cuteIndex[0]]->x[0], particles[cuteIndex[0]]->x[1]);
 
 	//cap_torso.a = c2V(particles[cuteIndex[1]]->x[0], particles[cuteIndex[1]]->x[1]);
@@ -524,6 +572,11 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	//cap_lLeg.b = c2V(particles[cuteIndex[10]]->x[0], particles[cuteIndex[10]]->x[1]);
 
 	// debugging
+	for (int i = 0; i < body.size(); i++) {
+		for (int j = 0; j < body[i].size(); j++) {
+			cout << "Particle Position: \n" << particles[body[i][j]]->x << endl;
+		}
+	}
 	//for (int i = 0; i < cuteIndex.size(); i++) {
 	//	cout << "Particle Positoin: \n" << particles[cuteIndex[i]]->x << endl;
 	//}
