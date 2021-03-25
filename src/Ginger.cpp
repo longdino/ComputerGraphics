@@ -470,35 +470,29 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 		}
 	}
 
-	c2Manifold m;
-	c2x ax = c2xIdentity();
-	c2x bx = c2xIdentity();
-	c2PolytoPolyManifold(&head, nullptr, &left_arm, nullptr, &m);
-
-	cout << "Head-LeftArm Collision" << endl;
-	cout << m.count << endl;
-	cout << m.depths[0] << ", " << m.depths[1] << endl;
-	cout << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
-	cout << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
-	cout << m.n.x << ", " << m.n.y << endl;
-
-	//cout << "======= Collision Detection Start =======" << endl;
-	//if (c2PolytoPoly(&head, nullptr, &right_arm, nullptr)) {
-	//	cout << "Head-RightArm Collision" << endl;
-	//}
-	//if (c2PolytoPoly(&head, nullptr, &left_arm, nullptr)) {
-	//	cout << "Head-LeftArm Collision" << endl;
-	//}
-	//if (c2PolytoPoly(&right_arm, nullptr, &right_leg, nullptr)) {
-	//	cout << "RightArm-RightLeg Collision" << endl;
-	//}
-	//if (c2PolytoPoly(&left_arm, nullptr, &left_leg, nullptr)) {
-	//	cout << "LeftArm-LeftLeg Collision" << endl;
-	//}
-	//if (c2PolytoPoly(&right_leg, nullptr, &left_leg, nullptr)) {
-	//	cout << "RightLeg-LeftLeg Collision" << endl;
-	//}
-	//cout << "======= Collision Detection End =======" << endl;
+	cout << "======= Collision Detection Start =======" << endl;
+	if (c2PolytoPoly(&head, nullptr, &right_arm, nullptr)) {
+		cout << "Head-RightArm Collision" << endl;
+	}
+	if (c2PolytoPoly(&head, nullptr, &left_arm, nullptr)) {
+		cout << "Head-LeftArm Collision" << endl;
+		for (int i = 0; i < body[0].size(); i++) {
+			cout << head.verts[i].x << ", " << head.verts[i].y << endl;
+		}
+		for (int i = 0; i < body[5].size(); i++) {
+			cout << left_arm.verts[i].x << ", " << left_arm.verts[i].y << endl;
+		}
+	}
+	if (c2PolytoPoly(&right_arm, nullptr, &right_leg, nullptr)) {
+		cout << "RightArm-RightLeg Collision" << endl;
+	}
+	if (c2PolytoPoly(&left_arm, nullptr, &left_leg, nullptr)) {
+		cout << "LeftArm-LeftLeg Collision" << endl;
+	}
+	if (c2PolytoPoly(&right_leg, nullptr, &left_leg, nullptr)) {
+		cout << "RightLeg-LeftLeg Collision" << endl;
+	}
+	cout << "======= Collision Detection End =======" << endl;
 	// solve using a sparse matrix
 	VectorXd b;
 	VectorXd x;
