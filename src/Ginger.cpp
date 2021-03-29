@@ -30,6 +30,13 @@ c2Poly torso;
 vector<vector<int>> body;
 vector<int> cuteIndex;
 
+// debugging
+c2Poly tri1;
+c2Poly tri2;
+vector<vector<int>> debg;
+vector<int> debgIndex;
+c2Manifold m;
+
 shared_ptr<Triangle> createTriangle(const shared_ptr<Particle> p0, const shared_ptr<Particle> p1, const shared_ptr<Particle> p2, double E) {
 	auto t = make_shared<Triangle>(p0, p1, p2);
 	t->E = E;
@@ -86,6 +93,43 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 
 		triangles.push_back(createTriangle(particles[j0], particles[j1], particles[j2], stiffness));
 	}
+
+	//// debugging
+	//for (int i = 0; i < 2; i++) {
+	//	debg.push_back(vector<int>());
+	//}
+
+	//tri1.count = 3;
+	//tri1.verts[0] = c2V(particles[0]->x[0], particles[0]->x[1]);
+	//tri1.verts[0] = c2V(particles[1]->x[0], particles[1]->x[1]);
+	//tri1.verts[0] = c2V(particles[2]->x[0], particles[2]->x[1]);
+	//c2Norms(tri1.verts, tri1.norms, 3);
+
+	//debg[0].push_back(particles[0]->i);
+	//debg[0].push_back(particles[1]->i);
+	//debg[0].push_back(particles[2]->i);
+
+	//tri2.count = 3;
+	//tri2.verts[0] = c2V(particles[0]->x[0], particles[0]->x[1]);
+	//tri2.verts[0] = c2V(particles[1]->x[0], particles[1]->x[1]);
+	//tri2.verts[0] = c2V(particles[4]->x[0], particles[4]->x[1]);
+	//c2Norms(tri2.verts, tri2.norms, 3);
+
+	//debg[1].push_back(particles[0]->i);
+	//debg[1].push_back(particles[1]->i);
+	//debg[1].push_back(particles[4]->i);
+
+	//if (c2PolytoPoly(&tri1, nullptr, &tri2, nullptr)) {
+	//	cout << "collision" << endl;
+	//}
+
+	//cout << "m.count: " << m.count << endl;
+	//cout << "collision point: " << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
+	//cout << "collision point: " << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
+	//c2PolytoPolyManifold(&tri1, nullptr, &tri2, nullptr, &m);
+	//cout << "m.count: " << m.count << endl;
+	//cout << "collision point: " << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
+	//cout << "collision point: " << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
 
 	// Create c2Circle and c2Capsules on gingerman's head, torso, arms, and legs
 	for (int i = 0; i < 6; i++) {
@@ -201,11 +245,11 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	body[5].push_back(60);
 	body[5].push_back(104);
 
-	// debugging
-	cout << body.size() << endl;
-	for (int i = 0; i < body.size(); i++) {
-		cout << body[i].size() << endl;
-	}
+	//// debugging
+	//cout << body.size() << endl;
+	//for (int i = 0; i < body.size(); i++) {
+	//	cout << body[i].size() << endl;
+	//}
 
 
 	// build system matrices and vectors
@@ -471,28 +515,36 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	}
 
 	cout << "======= Collision Detection Start =======" << endl;
-	if (c2PolytoPoly(&head, nullptr, &right_arm, nullptr)) {
-		cout << "Head-RightArm Collision" << endl;
-	}
+	//if (c2PolytoPoly(&tri1, nullptr, &tri2, nullptr)) {
+	//	cout << "collision" << endl;
+	//}
+	//if (c2PolytoPoly(&head, nullptr, &right_arm, nullptr)) {
+	//	cout << "Head-RightArm Collision" << endl;
+	//}
 	if (c2PolytoPoly(&head, nullptr, &left_arm, nullptr)) {
 		cout << "Head-LeftArm Collision" << endl;
-		for (int i = 0; i < body[0].size(); i++) {
-			cout << head.verts[i].x << ", " << head.verts[i].y << endl;
-		}
-		for (int i = 0; i < body[5].size(); i++) {
-			cout << left_arm.verts[i].x << ", " << left_arm.verts[i].y << endl;
-		}
+		//for (int i = 0; i < body[0].size(); i++) {
+		//	cout << head.verts[i].x << ", " << head.verts[i].y << endl;
+		//}
 	}
-	if (c2PolytoPoly(&right_arm, nullptr, &right_leg, nullptr)) {
-		cout << "RightArm-RightLeg Collision" << endl;
-	}
-	if (c2PolytoPoly(&left_arm, nullptr, &left_leg, nullptr)) {
-		cout << "LeftArm-LeftLeg Collision" << endl;
-	}
-	if (c2PolytoPoly(&right_leg, nullptr, &left_leg, nullptr)) {
-		cout << "RightLeg-LeftLeg Collision" << endl;
-	}
+	//	for (int i = 0; i < body[5].size(); i++) {
+	//		cout << left_arm.verts[i].x << ", " << left_arm.verts[i].y << endl;
+	//	}
+	//}
+	//if (c2PolytoPoly(&right_arm, nullptr, &right_leg, nullptr)) {
+	//	cout << "RightArm-RightLeg Collision" << endl;
+	//}
+	//if (c2PolytoPoly(&left_arm, nullptr, &left_leg, nullptr)) {
+	//	cout << "LeftArm-LeftLeg Collision" << endl;
+	//}
+	//if (c2PolytoPoly(&right_leg, nullptr, &left_leg, nullptr)) {
+	//	cout << "RightLeg-LeftLeg Collision" << endl;
+	//}
 	cout << "======= Collision Detection End =======" << endl;
+	c2PolytoPolyManifold(&head, nullptr, &left_arm, nullptr, &m);
+	cout << "m.count: " << m.count << endl;
+	cout << "collision point: " << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
+	cout << "collision point: " << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
 	// solve using a sparse matrix
 	VectorXd b;
 	VectorXd x;
@@ -524,6 +576,26 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 			particles[i]->x += h * particles[i]->v;
 		}
 	}
+
+	//for (int i = 0; i < debg.size(); i++) {
+	//	for (int j = 0; j < debg[i].size(); j++) {
+	//		switch (i) {
+	//		case 0:
+	//			tri1.verts[j] = c2V(particles[debg[i][j]]->x[0], particles[debg[i][j]]->x[1]);
+	//			//cout << "case 0" << endl;
+	//			break;
+	//		case 1:
+	//			tri2.verts[j] = c2V(particles[debg[i][j]]->x[0], particles[debg[i][j]]->x[1]);
+	//			//cout << "case 1" << endl;
+	//			break;
+	//		}
+
+	//		//cout << "j = " << j << endl;
+	//	}
+	//	//cout << "i = " << i << endl;
+	//}
+	//c2Norms(tri1.verts, tri1.norms, 3);
+	//c2Norms(tri2.verts, tri2.norms, 3);
 
 	// cute c2 update
 	for (int i = 0; i < body.size(); i++) {
@@ -596,6 +668,37 @@ void Ginger::draw(shared_ptr<MatrixStack> MV, const shared_ptr<Program> p) const
 	// Draw mesh
 	MV->pushMatrix();
 	glUniformMatrix4fv(p->getUniform("MV"), 1, GL_FALSE, glm::value_ptr(MV->topMatrix()));
+
+	glLineWidth(2.0f);
+	glColor3d(1.0, 0.0, 0.0);
+	glBegin(GL_LINES);
+	for (int i = 0; i < head.count; i++) {
+		if (i == 7) {
+			glVertex2f(head.verts[i].x, head.verts[i].y);
+			glVertex2f(head.verts[0].x, head.verts[0].y);
+		}
+		else {
+			glVertex2f(head.verts[i].x, head.verts[i].y);
+			glVertex2f(head.verts[i + 1].x, head.verts[i + 1].y);
+		}
+	}
+	glEnd();
+
+	glLineWidth(2.0f);
+	glColor3d(1.0, 0.0, 0.0);
+	glBegin(GL_LINES);
+	for (int i = 0; i < left_arm.count; i++) {
+		if (i == 5) {
+			glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
+			glVertex2f(left_arm.verts[0].x, left_arm.verts[0].y);
+		}
+		else {
+			glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
+			glVertex2f(left_arm.verts[i + 1].x, left_arm.verts[i + 1].y);
+		}
+	}
+	glEnd();
+
 	int h_pos = p->getAttribute("aPos");
 	glEnableVertexAttribArray(h_pos);
 	glBindBuffer(GL_ARRAY_BUFFER, posBufID);
