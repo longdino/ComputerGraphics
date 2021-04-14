@@ -147,44 +147,24 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 
 	// head
 	head.verts[0] = c2V(particles[3]->x[0], particles[3]->x[1]); //3
-	head.verts[1] = c2V(particles[8]->x[0], particles[8]->x[1]); //8
-	head.verts[2] = c2V(particles[10]->x[0], particles[10]->x[1]); //10
-	head.verts[3] = c2V(particles[13]->x[0], particles[13]->x[1]); //13
+	head.verts[1] = c2V(particles[1]->x[0], particles[1]->x[1]); //8
+	head.verts[2] = c2V(particles[41]->x[0], particles[41]->x[1]); //10
+	head.verts[3] = c2V(particles[39]->x[0], particles[39]->x[1]); //13
 	head.verts[4] = c2V(particles[12]->x[0], particles[12]->x[1]); //12
-	head.verts[5] = c2V(particles[39]->x[0], particles[39]->x[1]); //39
-	head.verts[6] = c2V(particles[41]->x[0], particles[41]->x[1]); //41
-	head.verts[7] = c2V(particles[1]->x[0], particles[1]->x[1]); //1
+	head.verts[5] = c2V(particles[13]->x[0], particles[13]->x[1]); //39
+	head.verts[6] = c2V(particles[10]->x[0], particles[10]->x[1]); //41
+	head.verts[7] = c2V(particles[8]->x[0], particles[8]->x[1]); //1
 	head.count = 8;
 	c2Norms(head.verts, head.norms, head.count);
 
-	body[0].push_back(particles[3]->i);
-	body[0].push_back(particles[8]->i);
-	body[0].push_back(particles[10]->i);
-	body[0].push_back(particles[13]->i);
-	body[0].push_back(particles[12]->i);
-	body[0].push_back(particles[39]->i);
-	body[0].push_back(particles[41]->i);
-	body[0].push_back(particles[1]->i);
-
-	//head.verts[0] = c2V(particles[1]->x[0], particles[1]->x[1]); //3
-	//head.verts[1] = c2V(particles[41]->x[0], particles[41]->x[1]); //8
-	//head.verts[2] = c2V(particles[39]->x[0], particles[39]->x[1]); //10
-	//head.verts[3] = c2V(particles[12]->x[0], particles[12]->x[1]); //13
-	//head.verts[4] = c2V(particles[13]->x[0], particles[13]->x[1]); //12
-	//head.verts[5] = c2V(particles[10]->x[0], particles[10]->x[1]); //39
-	//head.verts[6] = c2V(particles[8]->x[0], particles[8]->x[1]); //41
-	//head.verts[7] = c2V(particles[3]->x[0], particles[3]->x[1]); //1
-	//head.count = 8;
-	//c2Norms(head.verts, head.norms, head.count);
-
-	//body[0].push_back(particles[1]->i);
-	//body[0].push_back(particles[41]->i);
-	//body[0].push_back(particles[39]->i);
-	//body[0].push_back(particles[12]->i);
-	//body[0].push_back(particles[13]->i);
-	//body[0].push_back(particles[10]->i);
-	//body[0].push_back(particles[8]->i);
-	//body[0].push_back(particles[3]->i);
+	body[0].push_back(3);
+	body[0].push_back(1);
+	body[0].push_back(41);
+	body[0].push_back(39);
+	body[0].push_back(12);
+	body[0].push_back(13);
+	body[0].push_back(10);
+	body[0].push_back(8);
 
 	// torso
 	torso.verts[0] = c2V(0.206005, 0.050973); //34
@@ -208,38 +188,38 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	body[1].push_back(116);
 
 	// right arm
-	right_arm.verts[0] = c2V(0.206005, 0.050973); //34		torso
-	right_arm.verts[1] = c2V(0.204401, 0.389945); //163		torso
-	right_arm.verts[2] = c2V(0.526886, 0.445441); //204
-	right_arm.verts[3] = c2V(0.720891, 0.367685); //199
-	right_arm.verts[4] = c2V(0.717288, 0.203351); //22
-	right_arm.verts[5] = c2V(0.506512, 0.110512); //28
+	right_arm.verts[0] = c2V(particles[34]->x[0], particles[34]->x[1]); //34		
+	right_arm.verts[0] = c2V(particles[28]->x[0], particles[28]->x[1]); //28		
+	right_arm.verts[0] = c2V(particles[22]->x[0], particles[22]->x[1]); //22		
+	right_arm.verts[0] = c2V(particles[199]->x[0], particles[199]->x[1]); //199		
+	right_arm.verts[0] = c2V(particles[204]->x[0], particles[204]->x[1]); //204	
+	right_arm.verts[0] = c2V(particles[166]->x[0], particles[166]->x[1]); //166	
 	right_arm.count = 6;
-	c2Norms(right_arm.verts, right_arm.norms, 6); 
+	c2Norms(right_arm.verts, right_arm.norms, right_arm.count); 
 
 	body[2].push_back(34);
-	body[2].push_back(163);
-	body[2].push_back(204);
-	body[2].push_back(199);
-	body[2].push_back(22);
 	body[2].push_back(28);
+	body[2].push_back(22);
+	body[2].push_back(199);
+	body[2].push_back(204);
+	body[2].push_back(166);
 
 	// left arm
 
 	left_arm.verts[0] = c2V(particles[46]->x[0], particles[46]->x[1]); //46		torso
-	left_arm.verts[1] = c2V(particles[52]->x[0], particles[52]->x[1]); //52		torso
-	left_arm.verts[2] = c2V(particles[191]->x[0], particles[191]->x[1]); //191
+	left_arm.verts[1] = c2V(particles[146]->x[0], particles[146]->x[1]); //52		torso
+	left_arm.verts[2] = c2V(particles[207]->x[0], particles[207]->x[1]); //191
 	left_arm.verts[3] = c2V(particles[47]->x[0], particles[47]->x[1]); //47
-	left_arm.verts[4] = c2V(particles[207]->x[0], particles[207]->x[1]); //207
-	left_arm.verts[5] = c2V(particles[147]->x[0], particles[147]->x[1]); //147
+	left_arm.verts[4] = c2V(particles[191]->x[0], particles[191]->x[1]); //207
+	left_arm.verts[5] = c2V(particles[52]->x[0], particles[52]->x[1]); //147
 	left_arm.count = 3;
-	c2MakePoly(&left_arm);
+	c2Norms(left_arm.verts, left_arm.norms, left_arm.count);
 
 	body[3].push_back(46);
-	body[3].push_back(52);
-	body[3].push_back(191);
-	body[3].push_back(47);
+	body[3].push_back(146);
 	body[3].push_back(207);
+	body[3].push_back(47);
+	body[3].push_back(191);
 	body[3].push_back(147);
 
 	// right leg
@@ -250,7 +230,7 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	right_leg.verts[4] = c2V(particles[187]->x[0], particles[187]->x[1]); //187	torso
 	right_leg.verts[5] = c2V(particles[120]->x[0], particles[120]->x[1]); //120
 	right_leg.count = 6;
-	c2Norms(right_leg.verts, right_leg.norms, 6);
+	c2Norms(right_leg.verts, right_leg.norms, right_leg.count);
 
 	body[4].push_back(210);
 	body[4].push_back(118);
@@ -267,7 +247,7 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	left_leg.verts[4] = c2V(particles[104]->x[0], particles[104]->x[1]); //56		torso
 	left_leg.verts[5] = c2V(particles[71]->x[0], particles[71]->x[1]); //60
 	left_leg.count = 6;
-	c2Norms(left_leg.verts, left_leg.norms, 6);
+	c2Norms(left_leg.verts, left_leg.norms, left_leg.count);
 
 	body[5].push_back(67);
 	body[5].push_back(60);
@@ -581,7 +561,7 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	//	cout << "RightLeg-LeftLeg Collision" << endl;
 	//}
 	cout << "======= Collision Detection End =======" << endl;
-	c2PolytoPolyManifold(&right_leg, nullptr, &left_leg, nullptr, &m);
+	c2PolytoPolyManifold(&head, nullptr, &left_arm, nullptr, &m);
 	cout << "m.count: " << m.count << endl;
 	cout << "collision point: " << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
 	cout << "collision point: " << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
@@ -664,8 +644,8 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	}
 	c2Norms(head.verts, head.norms, head.count);
 	c2Norms(torso.verts, torso.norms, 8);
-	c2Norms(right_arm.verts, right_arm.norms, 6);
-	c2MakePoly(&left_arm);
+	c2Norms(right_arm.verts, right_arm.norms, right_arm.count);
+	c2Norms(left_arm.verts, left_arm.norms, left_arm.count);
 	c2Norms(right_leg.verts, right_leg.norms, right_leg.count);
 	c2Norms(left_leg.verts, left_leg.norms, left_leg.count);
 
@@ -769,35 +749,35 @@ void Ginger::draw(shared_ptr<MatrixStack> MV, const shared_ptr<Program> p) const
 	//}
 	//glEnd();
 
-	//glLineWidth(2.0f);
-	//glColor3d(1.0, 0.0, 0.0);
-	//glBegin(GL_LINES);
-	//for (int i = 0; i < right_arm.count; i++) {
-	//	if (i == 5) {
-	//		glVertex2f(right_arm.verts[i].x, right_arm.verts[i].y);
-	//		glVertex2f(right_arm.verts[0].x, right_arm.verts[0].y);
-	//	}
-	//	else {
-	//		glVertex2f(right_arm.verts[i].x, right_arm.verts[i].y);
-	//		glVertex2f(right_arm.verts[i + 1].x, right_arm.verts[i + 1].y);
-	//	}
-	//}
-	//glEnd();
+	glLineWidth(2.0f);
+	glColor3d(1.0, 0.0, 0.0);
+	glBegin(GL_LINES);
+	for (int i = 0; i < right_arm.count; i++) {
+		if (i == 5) {
+			glVertex2f(right_arm.verts[i].x, right_arm.verts[i].y);
+			glVertex2f(right_arm.verts[0].x, right_arm.verts[0].y);
+		}
+		else {
+			glVertex2f(right_arm.verts[i].x, right_arm.verts[i].y);
+			glVertex2f(right_arm.verts[i + 1].x, right_arm.verts[i + 1].y);
+		}
+	}
+	glEnd();
 
-	//glLineWidth(2.0f);
-	//glColor3d(1.0, 0.0, 0.0);
-	//glBegin(GL_LINES);
-	//for (int i = 0; i < left_arm.count; i++) {
-	//	if (i == 5) {
-	//		glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
-	//		glVertex2f(left_arm.verts[0].x, left_arm.verts[0].y);
-	//	}
-	//	else {
-	//		glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
-	//		glVertex2f(left_arm.verts[i + 1].x, left_arm.verts[i + 1].y);
-	//	}
-	//}
-	//glEnd();
+	glLineWidth(2.0f);
+	glColor3d(1.0, 0.0, 0.0);
+	glBegin(GL_LINES);
+	for (int i = 0; i < left_arm.count; i++) {
+		if (i == 5) {
+			glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
+			glVertex2f(left_arm.verts[0].x, left_arm.verts[0].y);
+		}
+		else {
+			glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
+			glVertex2f(left_arm.verts[i + 1].x, left_arm.verts[i + 1].y);
+		}
+	}
+	glEnd();
 
 	glLineWidth(2.0f);
 	glColor3d(1.0, 0.0, 0.0);
