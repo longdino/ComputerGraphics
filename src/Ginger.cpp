@@ -100,74 +100,103 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	//}
 
 	//tri1.count = 3;
-	//tri1.verts[0] = c2V(particles[0]->x[0], particles[0]->x[1]);
-	//tri1.verts[0] = c2V(particles[1]->x[0], particles[1]->x[1]);
-	//tri1.verts[0] = c2V(particles[2]->x[0], particles[2]->x[1]);
-	//c2Norms(tri1.verts, tri1.norms, 3);
+	//tri1.verts[0] = c2V(particles[9]->x[0], particles[9]->x[1]);
+	//tri1.verts[1] = c2V(particles[14]->x[0], particles[14]->x[1]);
+	//tri1.verts[2] = c2V(particles[10]->x[0], particles[10]->x[1]);
+	//c2Norms(tri1.verts, tri1.norms, tri1.count);
 
-	//debg[0].push_back(particles[0]->i);
-	//debg[0].push_back(particles[1]->i);
-	//debg[0].push_back(particles[2]->i);
+	//debg[0].push_back(particles[9]->i);
+	//debg[0].push_back(particles[14]->i);
+	//debg[0].push_back(particles[10]->i);
 
 	//tri2.count = 3;
-	//tri2.verts[0] = c2V(particles[0]->x[0], particles[0]->x[1]);
-	//tri2.verts[0] = c2V(particles[1]->x[0], particles[1]->x[1]);
-	//tri2.verts[0] = c2V(particles[4]->x[0], particles[4]->x[1]);
-	//c2Norms(tri2.verts, tri2.norms, 3);
+	//tri2.verts[0] = c2V(particles[12]->x[0], particles[12]->x[1]);
+	//tri2.verts[1] = c2V(particles[13]->x[0], particles[13]->x[1]);
+	//tri2.verts[2] = c2V(particles[11]->x[0], particles[11]->x[1]);
 
-	//debg[1].push_back(particles[0]->i);
-	//debg[1].push_back(particles[1]->i);
-	//debg[1].push_back(particles[4]->i);
+	//c2Norms(tri2.verts, tri2.norms, tri2.count);
+
+	//debg[1].push_back(particles[12]->i);
+	//debg[1].push_back(particles[13]->i);
+	//debg[1].push_back(particles[11]->i);
 
 	//if (c2PolytoPoly(&tri1, nullptr, &tri2, nullptr)) {
 	//	cout << "collision" << endl;
 	//}
 
-	//cout << "m.count: " << m.count << endl;
-	//cout << "collision point: " << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
-	//cout << "collision point: " << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
 	//c2PolytoPolyManifold(&tri1, nullptr, &tri2, nullptr, &m);
 	//cout << "m.count: " << m.count << endl;
-	//cout << "collision point: " << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
-	//cout << "collision point: " << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
+
+	//for (int i = 0; i < m.count; i++) {
+	//	cout << "collision point: " << m.contact_points[i].x << ", " << m.contact_points[i].y << endl;
+	//	cout << "depth: " << m.depths[i] << endl;
+	//	cout << "normal: " << m.n.x << ", " << m.n.y << endl;
+	//}
+
+	//for (int i = 0; i < tri1.count; i++) {
+	//	cout << "(" << tri1.verts[i].x << ", " << tri1.verts[i].y << ")" << endl;
+	//}
+	//for (int i = 0; i < tri2.count; i++) {
+	//	cout << "(" << tri2.verts[i].x << ", " << tri2.verts[i].y << ")" << endl;
+	//}
 
 	// Create c2Circle and c2Capsules on gingerman's head, torso, arms, and legs
 	for (int i = 0; i < 6; i++) {
 		body.push_back(vector<int>());
 	}
+
 	// head
+	head.verts[0] = c2V(particles[3]->x[0], particles[3]->x[1]); //3
+	head.verts[1] = c2V(particles[8]->x[0], particles[8]->x[1]); //8
+	head.verts[2] = c2V(particles[10]->x[0], particles[10]->x[1]); //10
+	head.verts[3] = c2V(particles[13]->x[0], particles[13]->x[1]); //13
+	head.verts[4] = c2V(particles[12]->x[0], particles[12]->x[1]); //12
+	head.verts[5] = c2V(particles[39]->x[0], particles[39]->x[1]); //39
+	head.verts[6] = c2V(particles[41]->x[0], particles[41]->x[1]); //41
+	head.verts[7] = c2V(particles[1]->x[0], particles[1]->x[1]); //1
 	head.count = 8;
+	c2Norms(head.verts, head.norms, head.count);
 
-	head.verts[0] = c2V(-0.031451, 0.974404); //3
-	head.verts[1] = c2V(0.140559, 0.911325); //8
-	head.verts[2] = c2V(0.202521, 0.844408); //10
-	head.verts[3] = c2V(0.239879, 0.740713); //13
-	head.verts[4] = c2V(0.245642, 0.648294); //12
-	head.verts[5] = c2V(-0.247861, 0.560698); //39
-	head.verts[6] = c2V(-0.212039, 0.603174); //41
-	head.verts[7] = c2V(-0.232033, 0.864814); //1
-	c2Norms(head.verts, head.norms, 8);
+	body[0].push_back(particles[3]->i);
+	body[0].push_back(particles[8]->i);
+	body[0].push_back(particles[10]->i);
+	body[0].push_back(particles[13]->i);
+	body[0].push_back(particles[12]->i);
+	body[0].push_back(particles[39]->i);
+	body[0].push_back(particles[41]->i);
+	body[0].push_back(particles[1]->i);
 
-	body[0].push_back(3);
-	body[0].push_back(8);
-	body[0].push_back(10);
-	body[0].push_back(13);
-	body[0].push_back(12);
-	body[0].push_back(39);
-	body[0].push_back(41);
-	body[0].push_back(1);
+	//head.verts[0] = c2V(particles[1]->x[0], particles[1]->x[1]); //3
+	//head.verts[1] = c2V(particles[41]->x[0], particles[41]->x[1]); //8
+	//head.verts[2] = c2V(particles[39]->x[0], particles[39]->x[1]); //10
+	//head.verts[3] = c2V(particles[12]->x[0], particles[12]->x[1]); //13
+	//head.verts[4] = c2V(particles[13]->x[0], particles[13]->x[1]); //12
+	//head.verts[5] = c2V(particles[10]->x[0], particles[10]->x[1]); //39
+	//head.verts[6] = c2V(particles[8]->x[0], particles[8]->x[1]); //41
+	//head.verts[7] = c2V(particles[3]->x[0], particles[3]->x[1]); //1
+	//head.count = 8;
+	//c2Norms(head.verts, head.norms, head.count);
+
+	//body[0].push_back(particles[1]->i);
+	//body[0].push_back(particles[41]->i);
+	//body[0].push_back(particles[39]->i);
+	//body[0].push_back(particles[12]->i);
+	//body[0].push_back(particles[13]->i);
+	//body[0].push_back(particles[10]->i);
+	//body[0].push_back(particles[8]->i);
+	//body[0].push_back(particles[3]->i);
 
 	// torso
-	torso.count = 8;
 	torso.verts[0] = c2V(0.206005, 0.050973); //34
 	torso.verts[1] = c2V(0.204401, 0.389945); //163
-	torso.verts[2] = c2V(-0.221547, 0.401628); //46
-	torso.verts[3] = c2V(-0.232984, 0.006345); //52
+	torso.verts[2] = c2V(particles[46]->x[0], particles[46]->x[1]); //46
+	torso.verts[0] = c2V(particles[52]->x[0], particles[52]->x[1]); //52
 	torso.verts[4] = c2V(-0.413897, -0.582149); //186
 	torso.verts[5] = c2V(-0.047760, -0.520907); //56
 	torso.verts[6] = c2V(0.037287, -0.559413); //187
 	torso.verts[7] = c2V(0.366414, -0.575988); //116
-	c2Norms(torso.verts, torso.norms, 8);
+	torso.count = 3;
+	c2Norms(torso.verts, torso.norms, 3);
 
 	body[1].push_back(34);
 	body[1].push_back(163);
@@ -179,13 +208,13 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	body[1].push_back(116);
 
 	// right arm
-	right_arm.count = 6;
 	right_arm.verts[0] = c2V(0.206005, 0.050973); //34		torso
 	right_arm.verts[1] = c2V(0.204401, 0.389945); //163		torso
 	right_arm.verts[2] = c2V(0.526886, 0.445441); //204
 	right_arm.verts[3] = c2V(0.720891, 0.367685); //199
 	right_arm.verts[4] = c2V(0.717288, 0.203351); //22
 	right_arm.verts[5] = c2V(0.506512, 0.110512); //28
+	right_arm.count = 6;
 	c2Norms(right_arm.verts, right_arm.norms, 6); 
 
 	body[2].push_back(34);
@@ -196,14 +225,15 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	body[2].push_back(28);
 
 	// left arm
-	left_arm.count = 6;
-	left_arm.verts[0] = c2V(-0.221547, 0.401628); //46		torso
-	left_arm.verts[1] = c2V(-0.232984, 0.006345); //52		torso
-	left_arm.verts[2] = c2V(-0.541340, 0.110214); //191
-	left_arm.verts[3] = c2V(-0.705156, 0.152890); //47
-	left_arm.verts[4] = c2V(-0.702987, 0.411238); //207
-	left_arm.verts[5] = c2V(-0.516223, 0.436304); //147
-	c2Norms(left_arm.verts, left_arm.norms, 6);
+
+	left_arm.verts[0] = c2V(particles[46]->x[0], particles[46]->x[1]); //46		torso
+	left_arm.verts[1] = c2V(particles[52]->x[0], particles[52]->x[1]); //52		torso
+	left_arm.verts[2] = c2V(particles[191]->x[0], particles[191]->x[1]); //191
+	left_arm.verts[3] = c2V(particles[47]->x[0], particles[47]->x[1]); //47
+	left_arm.verts[4] = c2V(particles[207]->x[0], particles[207]->x[1]); //207
+	left_arm.verts[5] = c2V(particles[147]->x[0], particles[147]->x[1]); //147
+	left_arm.count = 3;
+	c2MakePoly(&left_arm);
 
 	body[3].push_back(46);
 	body[3].push_back(52);
@@ -213,13 +243,13 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	body[3].push_back(147);
 
 	// right leg
+	right_leg.verts[0] = c2V(particles[210]->x[0], particles[210]->x[1]); //210
+	right_leg.verts[1] = c2V(particles[118]->x[0], particles[118]->x[1]); //118
+	right_leg.verts[2] = c2V(particles[115]->x[0], particles[115]->x[1]); //115
+	right_leg.verts[3] = c2V(particles[116]->x[0], particles[116]->x[1]); //116	torso
+	right_leg.verts[4] = c2V(particles[187]->x[0], particles[187]->x[1]); //187	torso
+	right_leg.verts[5] = c2V(particles[120]->x[0], particles[120]->x[1]); //120
 	right_leg.count = 6;
-	right_leg.verts[0] = c2V(0.261481, -0.951321); //210
-	right_leg.verts[1] = c2V(0.441437, -0.916451); //118
-	right_leg.verts[2] = c2V(0.454954, -0.748515); //115
-	right_leg.verts[3] = c2V(0.366414, -0.575988); //116	torso
-	right_leg.verts[4] = c2V(0.037287, -0.559413); //187	torso
-	right_leg.verts[5] = c2V(0.109210, -0.755835); //120
 	c2Norms(right_leg.verts, right_leg.norms, 6);
 
 	body[4].push_back(210);
@@ -230,21 +260,30 @@ Ginger::Ginger(const shared_ptr<Shape> g, const vector<float> pos, const vector<
 	body[4].push_back(120);
 
 	// left leg
+	left_leg.verts[0] = c2V(particles[67]->x[0], particles[67]->x[1]); //67
+	left_leg.verts[1] = c2V(particles[60]->x[0], particles[60]->x[1]); //71
+	left_leg.verts[2] = c2V(particles[56]->x[0], particles[56]->x[1]); //104
+	left_leg.verts[3] = c2V(particles[186]->x[0], particles[186]->x[1]); //186	torso
+	left_leg.verts[4] = c2V(particles[104]->x[0], particles[104]->x[1]); //56		torso
+	left_leg.verts[5] = c2V(particles[71]->x[0], particles[71]->x[1]); //60
 	left_leg.count = 6;
-	left_leg.verts[0] = c2V(-0.303781, -0.952134); //67
-	left_leg.verts[1] = c2V(-0.492885, -0.913644); //71
-	left_leg.verts[2] = c2V(-0.503754, -0.790425); //104
-	left_leg.verts[3] = c2V(-0.413897, -0.582149); //186	torso
-	left_leg.verts[4] = c2V(-0.047760, -0.520907); //56		torso
-	left_leg.verts[5] = c2V(-0.138877, -0.719272); //60
 	c2Norms(left_leg.verts, left_leg.norms, 6);
 
 	body[5].push_back(67);
-	body[5].push_back(71);
-	body[5].push_back(104);
-	body[5].push_back(186);
-	body[5].push_back(56);
 	body[5].push_back(60);
+	body[5].push_back(56);
+	body[5].push_back(186);
+	body[5].push_back(104);
+	body[5].push_back(71);
+
+	//if (c2PolytoPoly(&torso, nullptr, &left_arm, nullptr)) {
+	//	cout << "collision" << endl;
+	//}
+
+	//c2PolytoPolyManifold(&torso, nullptr, &left_arm, nullptr, &m);
+	//cout << "m.count: " << m.count << endl;
+	//cout << "collision point: " << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
+	//cout << "collision point: " << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
 
 	//// debugging
 	//cout << body.size() << endl;
@@ -522,12 +561,12 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	//if (c2PolytoPoly(&head, nullptr, &right_arm, nullptr)) {
 	//	cout << "Head-RightArm Collision" << endl;
 	//}
-	if (c2PolytoPoly(&head, nullptr, &left_arm, nullptr)) {
-		cout << "Head-LeftArm Collision" << endl;
-		//for (int i = 0; i < body[0].size(); i++) {
-		//	cout << head.verts[i].x << ", " << head.verts[i].y << endl;
-		//}
-	}
+	//if (c2PolytoPoly(&head, nullptr, &left_arm, nullptr)) {
+	//	cout << "Head-LeftArm Collision" << endl;
+	//	//for (int i = 0; i < body[0].size(); i++) {
+	//	//	cout << head.verts[i].x << ", " << head.verts[i].y << endl;
+	//	//}
+	//}
 	//	for (int i = 0; i < body[5].size(); i++) {
 	//		cout << left_arm.verts[i].x << ", " << left_arm.verts[i].y << endl;
 	//	}
@@ -542,7 +581,7 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	//	cout << "RightLeg-LeftLeg Collision" << endl;
 	//}
 	cout << "======= Collision Detection End =======" << endl;
-	c2PolytoPolyManifold(&torso, nullptr, &left_arm, nullptr, &m);
+	c2PolytoPolyManifold(&right_leg, nullptr, &left_leg, nullptr, &m);
 	cout << "m.count: " << m.count << endl;
 	cout << "collision point: " << m.contact_points[0].x << ", " << m.contact_points[0].y << endl;
 	cout << "collision point: " << m.contact_points[1].x << ", " << m.contact_points[1].y << endl;
@@ -595,8 +634,8 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 	//	}
 	//	//cout << "i = " << i << endl;
 	//}
-	//c2Norms(tri1.verts, tri1.norms, 3);
-	//c2Norms(tri2.verts, tri2.norms, 3);
+	//c2Norms(tri1.verts, tri1.norms, tri1.count);
+	//c2Norms(tri2.verts, tri2.norms, tri2.count);
 
 	// cute c2 update
 	for (int i = 0; i < body.size(); i++) {
@@ -623,12 +662,12 @@ void Ginger::step(double h, double mu, double lambda, const Vector2d& grav, cons
 			}
 		}
 	}
-	c2Norms(head.verts, head.norms, 8);
+	c2Norms(head.verts, head.norms, head.count);
 	c2Norms(torso.verts, torso.norms, 8);
 	c2Norms(right_arm.verts, right_arm.norms, 6);
-	c2Norms(left_arm.verts, left_arm.norms, 6);
-	c2Norms(right_leg.verts, right_leg.norms, 6);
-	c2Norms(left_leg.verts, left_leg.norms, 6);
+	c2MakePoly(&left_arm);
+	c2Norms(right_leg.verts, right_leg.norms, right_leg.count);
+	c2Norms(left_leg.verts, left_leg.norms, left_leg.count);
 
 	// debugging
 	//for (int i = 0; i < body.size(); i++) {
@@ -670,65 +709,95 @@ void Ginger::draw(shared_ptr<MatrixStack> MV, const shared_ptr<Program> p) const
 	MV->pushMatrix();
 	glUniformMatrix4fv(p->getUniform("MV"), 1, GL_FALSE, glm::value_ptr(MV->topMatrix()));
 
-	glLineWidth(2.0f);
-	glColor3d(1.0, 0.0, 0.0);
-	glBegin(GL_LINES);
-	for (int i = 0; i < head.count; i++) {
-		if (i == 7) {
-			glVertex2f(head.verts[i].x, head.verts[i].y);
-			glVertex2f(head.verts[0].x, head.verts[0].y);
-		}
-		else {
-			glVertex2f(head.verts[i].x, head.verts[i].y);
-			glVertex2f(head.verts[i + 1].x, head.verts[i + 1].y);
-		}
-	}
-	glEnd();
+	//glLineWidth(2.0f);
+	//glColor3d(1.0, 0.0, 0.0);
+	//glBegin(GL_LINES);
+	//for (int i = 0; i < tri1.count; i++) {
+	//	if (i == 2) {
+	//		glVertex2f(tri1.verts[i].x, tri1.verts[i].y);
+	//		glVertex2f(tri1.verts[0].x, tri1.verts[0].y);
+	//	}
+	//	else {
+	//		glVertex2f(tri1.verts[i].x, tri1.verts[i].y);
+	//		glVertex2f(tri1.verts[i + 1].x, tri1.verts[i + 1].y);
+	//	}
+	//}
+	//glEnd();
 
-	glLineWidth(2.0f);
-	glColor3d(1.0, 0.0, 0.0);
-	glBegin(GL_LINES);
-	for (int i = 0; i < torso.count; i++) {
-		if (i == 7) {
-			glVertex2f(torso.verts[i].x, torso.verts[i].y);
-			glVertex2f(torso.verts[0].x, torso.verts[0].y);
-		}
-		else {
-			glVertex2f(torso.verts[i].x, torso.verts[i].y);
-			glVertex2f(torso.verts[i + 1].x, torso.verts[i + 1].y);
-		}
-	}
-	glEnd();
+	//glLineWidth(2.0f);
+	//glColor3d(1.0, 0.0, 0.0);
+	//glBegin(GL_LINES);
+	//for (int i = 0; i < tri2.count; i++) {
+	//	if (i == 2) {
+	//		glVertex2f(tri2.verts[i].x, tri2.verts[i].y);
+	//		glVertex2f(tri2.verts[0].x, tri2.verts[0].y);
+	//	}
+	//	else {
+	//		glVertex2f(tri2.verts[i].x, tri2.verts[i].y);
+	//		glVertex2f(tri2.verts[i + 1].x, tri2.verts[i + 1].y);
+	//	}
+	//}
+	//glEnd();
 
-	glLineWidth(2.0f);
-	glColor3d(1.0, 0.0, 0.0);
-	glBegin(GL_LINES);
-	for (int i = 0; i < right_arm.count; i++) {
-		if (i == 5) {
-			glVertex2f(right_arm.verts[i].x, right_arm.verts[i].y);
-			glVertex2f(right_arm.verts[0].x, right_arm.verts[0].y);
-		}
-		else {
-			glVertex2f(right_arm.verts[i].x, right_arm.verts[i].y);
-			glVertex2f(right_arm.verts[i + 1].x, right_arm.verts[i + 1].y);
-		}
-	}
-	glEnd();
+	//glLineWidth(2.0f);
+	//glColor3d(1.0, 0.0, 0.0);
+	//glBegin(GL_LINES);
+	//for (int i = 0; i < head.count; i++) {
+	//	if (i == (head.count - 1)) {
+	//		glVertex2f(head.verts[i].x, head.verts[i].y);
+	//		glVertex2f(head.verts[0].x, head.verts[0].y);
+	//	}
+	//	else {
+	//		glVertex2f(head.verts[i].x, head.verts[i].y);
+	//		glVertex2f(head.verts[i + 1].x, head.verts[i + 1].y);
+	//	}
+	//}
+	//glEnd();
 
-	glLineWidth(2.0f);
-	glColor3d(1.0, 0.0, 0.0);
-	glBegin(GL_LINES);
-	for (int i = 0; i < left_arm.count; i++) {
-		if (i == 5) {
-			glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
-			glVertex2f(left_arm.verts[0].x, left_arm.verts[0].y);
-		}
-		else {
-			glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
-			glVertex2f(left_arm.verts[i + 1].x, left_arm.verts[i + 1].y);
-		}
-	}
-	glEnd();
+	//glLineWidth(2.0f);
+	//glColor3d(1.0, 0.0, 0.0);
+	//glBegin(GL_LINES);
+	//for (int i = 0; i < torso.count; i++) {
+	//	if (i == 7) {
+	//		glVertex2f(torso.verts[i].x, torso.verts[i].y);
+	//		glVertex2f(torso.verts[0].x, torso.verts[0].y);
+	//	}
+	//	else {
+	//		glVertex2f(torso.verts[i].x, torso.verts[i].y);
+	//		glVertex2f(torso.verts[i + 1].x, torso.verts[i + 1].y);
+	//	}
+	//}
+	//glEnd();
+
+	//glLineWidth(2.0f);
+	//glColor3d(1.0, 0.0, 0.0);
+	//glBegin(GL_LINES);
+	//for (int i = 0; i < right_arm.count; i++) {
+	//	if (i == 5) {
+	//		glVertex2f(right_arm.verts[i].x, right_arm.verts[i].y);
+	//		glVertex2f(right_arm.verts[0].x, right_arm.verts[0].y);
+	//	}
+	//	else {
+	//		glVertex2f(right_arm.verts[i].x, right_arm.verts[i].y);
+	//		glVertex2f(right_arm.verts[i + 1].x, right_arm.verts[i + 1].y);
+	//	}
+	//}
+	//glEnd();
+
+	//glLineWidth(2.0f);
+	//glColor3d(1.0, 0.0, 0.0);
+	//glBegin(GL_LINES);
+	//for (int i = 0; i < left_arm.count; i++) {
+	//	if (i == 5) {
+	//		glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
+	//		glVertex2f(left_arm.verts[0].x, left_arm.verts[0].y);
+	//	}
+	//	else {
+	//		glVertex2f(left_arm.verts[i].x, left_arm.verts[i].y);
+	//		glVertex2f(left_arm.verts[i + 1].x, left_arm.verts[i + 1].y);
+	//	}
+	//}
+	//glEnd();
 
 	glLineWidth(2.0f);
 	glColor3d(1.0, 0.0, 0.0);
